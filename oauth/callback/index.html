@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+        <title>TeslaAutoClose - OAuth Callback</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+                <style>
+                        body { background: #0d1117; color: #f0f6fc; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; }
+                                .spinner { width: 40px; height: 40px; border: 3px solid #30363d; border-top: 3px solid #1e88e5; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+                                        @keyframes spin { to { transform: rotate(360deg); } }
+                                                a { color: #58a6ff; }
+                                                    </style>
+                                                    </head>
+                                                    <body>
+                                                        <div style="text-align: center;">
+                                                                <div class="spinner"></div>
+                                                                        <h2>Redirecting to TeslaAutoClose...</h2>
+                                                                                <p>If the app doesn't open automatically, <a id="manual-link" href="#">click here</a>.</p>
+                                                                                        <p id="error" style="color: #f85149; display: none;"></p>
+                                                                                            </div>
+                                                                                                <script>
+                                                                                                        (function() {
+                                                                                                                    var params = new URLSearchParams(window.location.search);
+                                                                                                                                var code = params.get('code');
+                                                                                                                                            var state = params.get('state');
+                                                                                                                                            
+                                                                                                                                                        if (code) {
+                                                                                                                                                                        var appUrl = 'teslaautoclose://callback?code=' + encodeURIComponent(code);
+                                                                                                                                                                                        if (state) appUrl += '&state=' + encodeURIComponent(state);
+                                                                                                                                                                                                        document.getElementById('manual-link').href = appUrl;
+                                                                                                                                                                                                                        window.location.href = appUrl;
+                                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                                                    document.getElementById('error').style.display = 'block';
+                                                                                                                                                                                                                                                                    document.getElementById('error').textContent = 'No authorization code received. Please try signing in again.';
+                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                        })();
+                                                                                                                                                                                                                                                                                            </script>
+                                                                                                                                                                                                                                                                                            </body>
+                                                                                                                                                                                                                                                                                            </html>
